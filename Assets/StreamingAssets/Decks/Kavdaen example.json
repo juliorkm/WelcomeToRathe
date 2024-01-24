@@ -1,0 +1,38 @@
+{
+  "hero": "Kavdaen, Trader of Skins",
+  "weapons": [
+    "Talishar, the Lost Prince"
+  ],
+  "equipment": [
+    "Ironrot Helm",
+    "Ironrot Plate",
+    "Ironrot Gauntlet",
+    "Ironrot Legs"
+  ],
+  "deck": [
+    "Brutal Assault (Red)",
+    "Brutal Assault (Red)",
+    "Brutal Assault (Yellow)",
+    "Brutal Assault (Yellow)",
+    "Brutal Assault (Blue)",
+    "Brutal Assault (Blue)",
+    "Critical Strike (Red)",
+    "Critical Strike (Red)",
+    "Critical Strike (Yellow)",
+    "Critical Strike (Yellow)",
+    "Critical Strike (Blue)",
+    "Critical Strike (Blue)",
+    "Raging Onslaught (Red)",
+    "Raging Onslaught (Red)",
+    "Raging Onslaught (Yellow)",
+    "Raging Onslaught (Yellow)",
+    "Raging Onslaught (Blue)",
+    "Raging Onslaught (Blue)",
+    "Wounding Blow (Red)",
+    "Wounding Blow (Red)",
+    "Wounding Blow (Yellow)",
+    "Wounding Blow (Yellow)",
+    "Wounding Blow (Blue)",
+    "Wounding Blow (Blue)"
+  ]
+}

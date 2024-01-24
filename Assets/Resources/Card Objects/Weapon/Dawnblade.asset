@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b033d4fb63a204e44af1f695d492d856, type: 3}
+  m_Name: Dawnblade
+  m_EditorClassIdentifier: 
+  classes: 04000000
+  talents: 
+  cardName: Dawnblade
+  cardCode: U-WTR115
+  isLegendary: 0
+  specialization: []
+  sprite: {fileID: 21300000, guid: 022a16453507dab428f3cde786b95a4f, type: 3}
+  weaponType: 1
+  numberOfHands: 2
+  power: 3
