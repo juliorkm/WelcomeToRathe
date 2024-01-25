@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CardInstance : MonoBehaviour
-{
+public class CardInstance : MonoBehaviour, IPointerDownHandler {
     [SerializeField]
     private Card cardReference;
     public bool isHidden = true;
@@ -11,8 +11,19 @@ public class CardInstance : MonoBehaviour
     public int playerController;
     public Constants.Zones zone;
 
+    private Sprite frontSprite;
+    private Sprite backSprite;
+
+    private void AddPhysicsRaycaster() {
+        PhysicsRaycaster physicsRaycaster = FindObjectOfType<PhysicsRaycaster>();
+        if (physicsRaycaster == null) {
+            Camera.main.gameObject.AddComponent<PhysicsRaycaster>();
+        }
+    }
+
     // Start is called before the first frame update
     void Start() {
+        AddPhysicsRaycaster();
         StartCoroutine(updateFrontImage());
     }
 
@@ -20,6 +31,16 @@ public class CardInstance : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void OnPointerDown(PointerEventData eventData) {
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            CardInfo cardInfo = FindObjectOfType<CardInfo>();
+            if (!isHidden || (playerController == 1 && (zone == Constants.Zones.Hand || zone == Constants.Zones.Arsenal)))
+                cardInfo.Open(frontSprite);
+            else
+                cardInfo.Open(backSprite);
+        }
     }
 
     public Card getCardReference() {
@@ -62,7 +83,7 @@ public class CardInstance : MonoBehaviour
                 m_mesh.uv[3] = new Vector2(1.0f, 0.0f);
 
                 m_material.SetTexture("_CardFront", m_sprite.texture);
-
+                frontSprite = m_sprite;
             }
 
         }
@@ -90,7 +111,7 @@ public class CardInstance : MonoBehaviour
                 m_mesh.uv[3] = new Vector2(1.0f, 0.0f);
 
                 m_material.SetTexture("_CardBack", sprite.texture);
-
+                backSprite = sprite;
             }
 
         }

@@ -95,6 +95,7 @@ public class DuelManager : MonoBehaviour {
         hero.transform.localPosition = Vector3.zero;
         hero.transform.localRotation = Quaternion.Euler(-90, 0, 0);
         heroes[player - 1] = hero.GetComponent<CardInstance>();
+        heroes[player - 1].setHidden(false);
 
         GameObject deckObj = Instantiate((GameObject)Resources.Load("Prefabs/Card Pile"), playmatInstances[player - 1].deckLocation.transform);
         deckObj.transform.localPosition = Vector3.zero;
