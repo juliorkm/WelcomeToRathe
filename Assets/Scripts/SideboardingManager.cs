@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class SideboardingManager : MonoBehaviour {
     public Image playerImage;
     public TMPro.TextMeshProUGUI playerName;
+    public Image opponent1Image;
+    public TMPro.TextMeshProUGUI opponent1Name;
     public TMPro.TMP_Dropdown headDropdown;
     public Image headImage;
     public TMPro.TMP_Dropdown chestDropdown;
@@ -36,7 +38,7 @@ public class SideboardingManager : MonoBehaviour {
     void Start() {
         na = leftImage.sprite;
         playerName.text = DuelManager.player1Name;
-        playerImage.sprite = DuelManager.player1Image;
+        StartCoroutine(JoinRoomMenu.getPlayerSprite(playerImage, DuelManager.player1Deck.hero.cardCode));
 
         heads = DuelManager.player1Deck.equipment.Where(x => x.subType == CardTypes.SubTypes.Head).OrderBy(x => x.name).ToList();
         chests = DuelManager.player1Deck.equipment.Where(x => x.subType == CardTypes.SubTypes.Chest).OrderBy(x => x.name).ToList();
@@ -55,6 +57,10 @@ public class SideboardingManager : MonoBehaviour {
 
         leftDropdown.AddOptions(weapons.Select(x => x.name).ToList());
         rightDropdown.AddOptions(weapons.Select(x => x.name).ToList());
+
+        DuelManager.mockPlayer2();
+        opponent1Name.text = DuelManager.player2Name;
+        StartCoroutine(JoinRoomMenu.getPlayerSprite(opponent1Image, DuelManager.player2Deck.hero.cardCode));
     }
 
     private Sprite sliceSprite(Sprite sprite) {
@@ -220,6 +226,8 @@ public class SideboardingManager : MonoBehaviour {
 
     public void submit() {
         DuelManager.player1Deck.mainDeck = DuelManager.player1Deck.cards.ToArray();
+        DuelManager.player1Image = playerImage.sprite;
+        DuelManager.player2Image = opponent1Image.sprite;
         SceneManager.LoadScene("DuelScene");
     }
 }

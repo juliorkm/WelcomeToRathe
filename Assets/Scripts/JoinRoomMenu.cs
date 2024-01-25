@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class JoinRoomMenu : MonoBehaviour {
-    private Sprite unknown;
+    private static Sprite unknown;
 
     public Image playerImage;
     public TMPro.TextMeshProUGUI playerName;
@@ -74,10 +74,10 @@ public class JoinRoomMenu : MonoBehaviour {
         updateSleeve();
     }
 
-    private IEnumerator getPlayerSprite() {
-        playerImage.sprite = unknown;
+    public static IEnumerator getPlayerSprite(Image pImage, string cardCode) {
+        pImage.sprite = unknown;
         List<Sprite> spriteResponse = new List<Sprite>();
-        yield return ImageCache.getSprite(spriteResponse, decks[deckDropdown.value].hero.cardCode);
+        yield return ImageCache.getSprite(spriteResponse, cardCode);
         var texture = spriteResponse[0].texture;
         var rect = new Rect(texture.width * 80f / 450, texture.height * 255 / 628, texture.width * 291 / 450, texture.height * 291 / 628);
         var vector = new Vector2(80f / 450, 82f / 628);
@@ -85,11 +85,11 @@ public class JoinRoomMenu : MonoBehaviour {
         if (spriteResponse.Count == 0) {
             yield break;
         }
-        playerImage.sprite = croppedSprite;
+        pImage.sprite = croppedSprite;
     }
 
     public void updatePlayerImage() {
-        StartCoroutine(getPlayerSprite());
+        StartCoroutine(getPlayerSprite(playerImage, decks[deckDropdown.value].hero.cardCode));
         PlayerPrefs.SetString("deck", decks[deckDropdown.value].name);
         PlayerPrefs.Save();
     }
@@ -114,7 +114,6 @@ public class JoinRoomMenu : MonoBehaviour {
 
     public void submit() {
         DuelManager.player1Name = playerNameInput.text;
-        DuelManager.player1Image = playerImage.sprite;
         DuelManager.player1Deck = decks[deckDropdown.value];
         DuelManager.player1Playmat = playmats[playmatDropdown.value];
         DuelManager.player1Sleeve = sleeves[sleeveDropdown.value];

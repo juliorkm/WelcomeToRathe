@@ -1,30 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DuelManager : MonoBehaviour {
     public static string player1Name;
     public static Deck player1Deck;
-    public static Sprite player1Image;
     public static Sprite player1Playmat;
     public static Sprite player1Sleeve;
+    public static Sprite player1Image;
 
     public static string player2Name;
     public static Deck player2Deck;
-    public static Sprite player2Image;
     public static Sprite player2Playmat;
     public static Sprite player2Sleeve;
+    public static Sprite player2Image;
+
+    public static int turnPlayer = 1;
 
     [SerializeField]
     private int activePlayers;
-    //[SerializeField]
-    //private List<Sprite> playmatSprites;
-    //[SerializeField]
-    //private List<HeroCard> heroes;
-    //private List<Dictionary<Constants.Zones, WeaponCard>> weapons;
-    //private List<Dictionary<CardTypes.SubTypes, EquipmentCard>> equipments;
-    //private CardPile player2DeckPile;
-    //private List<CardPile> decks;
+
+    public int turnCount = 1;
+    public int actionPoints = 0;
+
+    public Image turnPlayerImage;
+    public TMPro.TextMeshProUGUI turnPlayerName;
+    public TMPro.TextMeshProUGUI turnCountText;
+    public TMPro.TextMeshProUGUI actionPointText;
 
     private CardInstance[] heroes;
     private PlaymatInstance[] playmatInstances;
@@ -42,24 +45,7 @@ public class DuelManager : MonoBehaviour {
     private CardPile[] soulPiles;
     private List<CardInstance>[] hands;
 
-    //private PlaymatInstance player2PlaymatInstance;
-    //private CardPile player2HeadPile;
-    //private CardPile player2ChestPile;
-    //private CardPile player2ArmsPile;
-    //private CardPile player2LegsPile;
-    //private CardPile player2LeftPile;
-    //private CardPile player2RightPile;
-    //private CardPile player2ArsenalPile;
-    //private CardPile player2GraveyardPile;
-    //private CardPile player2BanishedPile;
-    //private CardPile player2PitchPile;
-    //private CardPile player2SoulPile;
-    //private List<CardInstance> player2Hand;
-
-    //private List<PlaymatInstance> playmats;
-    //private List<List<CardInstance>> hands;
-
-    void mockPlayer2() {
+    public static void mockPlayer2() {
         player2Name = "Player 2";
         player2Deck = new Deck(
             "name",
@@ -236,8 +222,6 @@ public class DuelManager : MonoBehaviour {
         soulPiles = new CardPile[activePlayers];
         hands = new List<CardInstance>[activePlayers];
 
-        mockPlayer2();
-
         SetupPlayer(1, Vector3.zero, Quaternion.identity);
         SetupPlayer(2, new Vector3(0, 0, -4.04f), Quaternion.Euler(0, 180, 0));
 
@@ -274,6 +258,19 @@ public class DuelManager : MonoBehaviour {
 
     IEnumerator beginDuel() {
         yield return new WaitForEndOfFrame();
+        turnCountText.text = "Turns: " + turnCount;
+        switch (turnPlayer) {
+            case 1:
+                turnPlayerImage.sprite = player1Image;
+                turnPlayerName.text = player1Name;
+                break;
+            case 2:
+                turnPlayerImage.sprite = player2Image;
+                turnPlayerName.text = player2Name;
+                break;
+            default:
+                break;
+        }
         for (var player = 0; player < playmatInstances.Length; player++) {
             deckPiles[player].shuffle();
             yield return new WaitForSeconds(1f);
