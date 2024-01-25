@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 622301915892924756}
   - component: {fileID: 3576458884879563056}
   m_Layer: 0
-  m_Name: Deck Pile
+  m_Name: Card Pile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

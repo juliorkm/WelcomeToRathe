@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SideboardingManager : MonoBehaviour {
@@ -215,5 +216,10 @@ public class SideboardingManager : MonoBehaviour {
         DuelManager.player1Deck.rightHand = weapons[rightDropdown.value - 1];
         List<Sprite> spriteResponse = new List<Sprite>();
         StartCoroutine(getRightSprite(spriteResponse, weapons[rightDropdown.value - 1].cardCode));
+    }
+
+    public void submit() {
+        DuelManager.player1Deck.mainDeck = DuelManager.player1Deck.cards.ToArray();
+        SceneManager.LoadScene("DuelScene");
     }
 }

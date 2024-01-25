@@ -50,7 +50,7 @@ public class CardPile : MonoBehaviour {
         else
             cardObj.transform.position = cardInstances[cardInstances.Count - 2].transform.position + new Vector3(0, 0 + 0.005f, 0);
         cardObj.transform.parent = transform;
-        cardObj.transform.localRotation = Quaternion.Euler(90 * (card.isHidden ? 1 : -1), 0, 0);
+        cardObj.transform.localRotation = Quaternion.Euler(90 * (card.isHidden ? 1 : -1), 180 * (card.isHidden ? 0 : 1), 0);
     }
 
     public void addCardBottom(CardInstance card) {

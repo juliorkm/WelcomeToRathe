@@ -12,8 +12,7 @@ public class CardInstance : MonoBehaviour
     public Constants.Zones zone;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         StartCoroutine(updateFrontImage());
     }
 
@@ -68,5 +67,32 @@ public class CardInstance : MonoBehaviour
 
         }
         yield return null;
+    }
+
+    public void updateSleeve(Sprite sprite) {
+        for (int i = 0; i < transform.childCount; i++) {
+            if (transform.GetChild(i).gameObject.tag == "CardFront") {
+                var front = transform.GetChild(i).gameObject;
+                var m_renderer = front.GetComponent<MeshRenderer>();
+                var m_mesh = front.GetComponent<MeshFilter>().mesh;
+                var m_material = m_renderer.material;
+
+                Rect spriteRect = sprite.textureRect;
+
+                m_mesh.uv[0] = new Vector2(spriteRect.x + 0.0f, spriteRect.y + spriteRect.height);
+                m_mesh.uv[1] = new Vector2(spriteRect.x + spriteRect.width, spriteRect.y + spriteRect.height);
+                m_mesh.uv[2] = new Vector2(spriteRect.x + 0.0f, spriteRect.y + 0.0f);
+                m_mesh.uv[3] = new Vector2(spriteRect.x + spriteRect.width, spriteRect.y + 0.0f);
+
+                m_mesh.uv[0] = new Vector2(0.0f, 1.0f);
+                m_mesh.uv[1] = new Vector2(1.0f, 1.0f);
+                m_mesh.uv[2] = new Vector2(0.0f, 0.0f);
+                m_mesh.uv[3] = new Vector2(1.0f, 0.0f);
+
+                m_material.SetTexture("_CardBack", sprite.texture);
+
+            }
+
+        }
     }
 }
